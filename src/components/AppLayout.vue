@@ -1,15 +1,17 @@
 <style scoped>
     #layout{
-        border: 1px solid #d7dde4;
+        /* border: 1px solid #d7dde4; */
         /* border-right: 0px; */
-        background: #f5f7f9;
+        /* background: #f5f7f9; */
         position: relative;
-        border-radius: 4px;
+        /* border-radius: 4px; */
         overflow: hidden;
     }
     .layout-header-bar{
-        background: #fff;
-        box-shadow: 0 1px 1px rgba(0,0,0,.1);
+        /* background: #fff; */
+        color: white;
+        padding: 0px;
+        /* box-shadow: 0 1px 1px rgba(0,0,0,.1); */
     }
 
     .layout-logo-left{
@@ -50,6 +52,13 @@
         vertical-align: middle;
         font-size: 22px;
     }
+    .toggle-expand {
+      width: 100%;
+      margin-left: 0px;
+    }
+    .toggle-back {
+      margin-left: 200px;
+    }
 </style>
 <template>
     <div id="layout">
@@ -58,30 +67,36 @@
           ref="side1"
           hide-trigger
           collapsible
-          :collapsed-width="78"
+          :collapsed-width="60"
           v-model="isCollapsed"
           >
-            <app-aside :class="menuitemClasses"/>
+            <app-aside :isCollapsed="isCollapsed"/>
         </Sider>
-        <Layout :style="{marginLeft: '200px'}">
-          <Header :style="{padding: 0}" theme="dark" class="layout-header-bar">
-              <!-- <Icon
-                @click.native="collapsedSider"
-                :class="rotateIcon"
-                :style="{margin: '20px 20px 0'}"
-                type="navicon-round"
-                size="24"></Icon> -->
+        <Layout :class="menuShrink">
+          <Header theme="dark" class="layout-header-bar">
+            <Row >
+              <Col :span="1">
+                <Icon
+                  @click.native="collapsedSider"
+                  :class="rotateIcon"
+                  :style="{margin: '20px 20px 0'}"
+                  type="navicon-round"
+                  size="24"/>
+              </Col>
+              <Col :span="23">
                 <app-header/>
+              </Col>
+            </Row>
           </Header>
-          <Content :style="{padding: '0 16px 16px'}">
-              <Breadcrumb :style="{margin: '16px 0'}">
+          <Content>
+              <!-- <Breadcrumb :style="{margin: '16px 0'}">
                   <BreadcrumbItem>Home</BreadcrumbItem>
                   <BreadcrumbItem>Components</BreadcrumbItem>
                   <BreadcrumbItem>Layout</BreadcrumbItem>
               </Breadcrumb>
               <Card>
                   <div style="height: 600px">Content</div>
-              </Card>
+              </Card> -->
           </Content>
         </Layout>
     </div>
@@ -97,17 +112,14 @@
         };
       },
       computed: {
+        menuShrink () {
+          return this.isCollapsed ? 'toggle-expand' : 'toggle-back';
+        },
         rotateIcon () {
           return [
             'menu-icon',
             this.isCollapsed ? 'rotate-icon' : ''
           ];
-        },
-        menuitemClasses () {
-          return [
-            'menu-item',
-            this.isCollapsed ? 'collapsed-menu' : ''
-          ]
         }
       },
       methods: {

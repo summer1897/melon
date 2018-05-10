@@ -1,5 +1,15 @@
+<style scoped>
+.app-aside-menu {
+  border: 1px solid yellow;
+  padding: 0px;
+}
+</style>
 <template>
-  <Menu mode="horizontal" :theme="theme1" active-name="1">
+  <Menu
+    mode="horizontal"
+    :theme="theme1"
+    active-name="1"
+  >
     <MenuItem name="1">
       <Icon type="ios-paper"></Icon>
       内容管理
